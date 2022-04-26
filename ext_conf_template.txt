@@ -1,0 +1,26 @@
+/**
+* --------------------------------------------------------------
+* This file is part of the package UniPotsdam\Orcid.
+* copyright 2022 by University Potsdam
+* https://www.uni-potsdam.de/
+*
+* GitHub repo: https://github.com/University-of-Potsdam-MM/orcid
+*
+* Project: Orcid Extension
+* Developer: Anuj Sharma (asharma@uni-potsdam.de)
+* Developer: Stefanie Lemcke (stefanie.lemcke@uni-potsdam.de)
+*
+* --------------------------------------------------------------
+*/
+
+
+#
+# Extension Configuration template
+#
+
+# cat=API Url; type=string; label=LLL:EXT:orcid/Resources/Private/Language/locallang_be.xlf:config.apiUrl
+apiurl =
+
+# cat=Proxy; type=string; label=LLL:EXT:orcid/Resources/Private/Language/locallang_be.xlf:config.proxy
+proxy =
+

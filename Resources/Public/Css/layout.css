@@ -1,0 +1,53 @@
+/**
+ * --------------------------------------------------------------
+ * This file is part of the package UniPotsdam\Orcid.
+ * copyright 2022 by University Potsdam
+ * https://www.uni-potsdam.de/
+ *
+ * GitHub repo: https://github.com/University-of-Potsdam-MM/orcid
+ *
+ * Project: Orcid Extension
+ * Developer: Anuj Sharma (asharma@uni-potsdam.de)
+ * Developer: Stefanie Lemcke (stefanie.lemcke@uni-potsdam.de)
+ *
+ * --------------------------------------------------------------
+ */
+.orcid_data{
+    position: relative;
+    float: none;
+    width: 100%;
+}
+
+.csl-bib-body {
+    padding: 10px 0px;
+    background: #f5f5f5;
+    margin: 0 0 1em;
+    float: left;
+    width: 100%;
+}
+
+.csl-entry {
+    padding: 1.1em 0 0em;
+    margin: 0em 2em 1.2em;
+    border-top: 1px solid #ccc;
+    line-height: 1.4;
+}
+
+.csl-entry:first-of-type {
+    border-top: 0px none;
+}
+
+.csl-left-margin{
+    float: left;
+    margin: 0px 5px 0px 0px;
+}
+
+.cita-group{
+    margin: 1em 1em 0.4em 1em;
+    margin-top: 0.4em;
+}
+
+#loading-img {
+    width: 100%;
+    text-align: center;
+}

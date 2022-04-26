@@ -1,0 +1,23 @@
+{
+    "name": "unipotsdam/orcid",
+    "type": "typo3-cms-extension",
+    "description": "Get the all data with typo3",
+    "homepage": "https://www.uni-potsdam.de",
+    "license": [
+        "GPL-2.0-or-later"
+    ],
+    "keywords": [
+        "TYPO3 CMS"
+    ],
+    "autoload": {
+        "psr-4": {
+            "UniPotsdam\\Orcid\\": "Classes"
+        }
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "orcid"
+        }
+    },
+    "version": "1.0.0"
+}

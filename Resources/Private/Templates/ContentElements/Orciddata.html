@@ -1,0 +1,95 @@
+
+/**
+* --------------------------------------------------------------
+* This file is part of the package UniPotsdam\Orcid.
+* copyright 2022 by University Potsdam
+* https://www.uni-potsdam.de/
+*
+* GitHub repo: https://github.com/University-of-Potsdam-MM/orcid
+*
+* Project: Orcid Extension
+* Developer: Anuj Sharma (asharma@uni-potsdam.de)
+* Developer: Stefanie Lemcke (stefanie.lemcke@uni-potsdam.de)
+*
+* --------------------------------------------------------------
+*/
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:o="http://typo3.org/ns/UniPotsdam/Orcid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+<f:layout name="Default"/>
+
+
+<f:section name="HeaderAssets">
+    <script src="{f:uri.resource(path:'JavaScript/citeproc.js', extensionName:'orcid')}"
+            type='text/javascript'></script>
+    <script src="{f:uri.resource(path:'JavaScript/orcid.js', extensionName:'orcid')}" type='text/javascript'></script>
+</f:section>
+
+<f:section name="Main">
+    <f:for each='<o:orciddata uid="{data.orcid_id}" orcidstyle="{data.orcid_citation_style}" groupingStyle="{data.orcid_grouping_style}"/>'
+           as="orciddata">
+
+        <f:if condition="{orciddata.author}">
+            <f:then>
+                <f:if condition="{data.orcid_profile_owner} == 1">
+                    <h2>
+                        <f:format.raw>{orciddata.author}</f:format.raw>
+                    </h2>
+                </f:if>
+                <script type="text/javascript">
+                    var divID = "{data.uid}";
+                    var section = document.getElementById("c" + divID);
+
+                    var orcidData = '<f:format.raw value="{orciddata.jsonData}" />';
+                    try {
+                        let orcidDataJSON = JSON.parse(orcidData);
+
+                        let citationStyle = '<f:format.raw value="{orciddata.style}" />';
+                        let locales = '<f:format.raw value="{orciddata.locales}" />';
+
+                        if (locales == '' || citationStyle == '') {
+                            let warning = document.createElement("div");
+                            warning.innerText = '<f:translate key="error.citationsstyle_locales" extensionName="orcid"/>';
+                            section.insertAdjacentElement('beforeend', warning);
+                        } else if (!Array.isArray(orcidDataJSON) || !orcidDataJSON.length) {
+                            let warning = document.createElement("div");
+                            warning.innerText = '<f:translate key="warning.no_workdata" extensionName="orcid"/>';
+                            section.insertAdjacentElement('beforeend', warning);
+                        } else {
+                            let groupingStyle = '<f:format.raw value="{data.orcid_grouping_style}" />';
+                            groupingStyle = (groupingStyle === "" ? 0 : groupingStyle);
+                            let groups = null;
+                            if (groupingStyle != '0') {
+                                try {
+                                    groups = JSON.parse('<f:format.raw value="{orciddata.groups}" />');
+                                } catch (err) {
+                                    /** in case of error no groups are used **/
+                                    groupingStyle = '0'
+                                }
+                            }
+                            try {
+                                let orcidData = renderData(divID, orcidDataJSON, groups, groupingStyle, citationStyle, locales);
+                                section.insertAdjacentElement('beforeend', orcidData);
+                            } catch (err) {
+                                let warning = document.createElement("div");
+                                warning.innerText = '<f:translate key="error.rendering" extensionName="orcid"/>';
+                                section.insertAdjacentElement('beforeend', warning);
+                            }
+                        }
+                    } catch {
+                        let warning = document.createElement("div");
+                        warning.innerText = '<f:translate key="error.jsondata" extensionName="orcid"/>';
+                        section.insertAdjacentElement('beforeend', warning);
+                    }
+
+                </script>
+            </f:then>
+            <f:else>
+                <div><f:translate key="warning.no_record" extensionName="orcid"/></div>
+            </f:else>
+        </f:if>
+    </f:for>
+</f:section>
+
+
+</html>

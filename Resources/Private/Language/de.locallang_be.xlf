@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<!--
+* This file is part of the package UniPotsdam\Orcid.
+* copyright 2022 by University Potsdam
+* https://www.uni-potsdam.de/
+*
+* GitHub repo: https://github.com/University-of-Potsdam-MM/orcid
+*
+* Project: Orcid Extension
+* Developer: Stefanie Lemcke (stefanie.lemcke@uni-potsdam.de)
+*
+-->
+<xliff version="1.0">
+    <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2019-07-29UTC20:01:580">
+        <header>
+            <authorName>Stefanie Lemcke</authorName>
+            <authorEmail>stefanie.lemcke@uni-postdam.de</authorEmail>
+        </header>
+        <body>
+            <trans-unit id="profileowner.label">
+                <source>Name of the profile owner</source>
+                <target>Name des Profilinhabers</target>
+            </trans-unit>
+            <trans-unit id="profileowner.1">
+                <source>display</source>
+                <target>Anzeigen</target>
+            </trans-unit>
+            <trans-unit id="profileowner.2">
+                <source>hide</source>
+                <target>Verstecken</target>
+            </trans-unit>
+			<trans-unit id="citationstyle.label">
+                <source>Citation Style</source>
+                <target>Zitationsstil</target>
+            </trans-unit>
+            <trans-unit id="citationstyle">
+                 <source>Common Citation Styles</source>
+                 <target>Gängige Zitationsstile</target>
+            </trans-unit>
+			<trans-unit id="citationstyle.acm-sig-proceedings">
+                <source>ACM</source>
+                <target>ACM</target>
+            </trans-unit>
+			<trans-unit id="citationstyle.apa">
+                <source>APA</source>
+                <target>APA</target>
+            </trans-unit>
+			<trans-unit id="citationstyle.associacao-brasileira-de-normas-tecnicas">
+                <source>ABNT</source>
+                <target>ABNT</target>
+            </trans-unit>
+			<trans-unit id="citationstyle.chicago-author-date">
+                <source>Chicago</source>
+                <target>Chicago</target>
+            </trans-unit>
+			<trans-unit id="citationstyle.harvard-cite-them-right">
+                <source>Harvard</source>
+                <target>Harvard</target>
+            </trans-unit>
+			<trans-unit id="citationstyle.ieee">
+                <source>IEEE</source>
+                <target>IEEE</target>
+            </trans-unit>
+			<trans-unit id="citationstyle.modern-language-association">
+                <source>MLA</source>
+                <target>MLA</target>
+            </trans-unit>
+			<trans-unit id="citationstyle.turabian-fullnote-bibliography">
+                <source>Turabian</source>
+                <target>Turabian</target>
+            </trans-unit>
+			<trans-unit id="citationstyle.vancouver">
+                <source>Vancouver</source>
+                <target>Vancouver</target>
+            </trans-unit>
+            <trans-unit id="citationstyle.american-chemical-society">
+                 <source>ACS</source>
+                 <target>ACS</target>
+            </trans-unit>
+            <trans-unit id="citationstyle.royal-society-of-chemistry">
+                 <source>RSC</source>
+                 <target>RSC</target>
+            </trans-unit>
+			<trans-unit id="id.label">
+                <source>ORCID iD</source>
+                <target>ORCID iD</target>
+            </trans-unit>
+            <trans-unit id="groupingstyle.label">
+                 <source>Grouping Style</source>
+                 <target>Gruppierungsstil</target>
+            </trans-unit>
+            <trans-unit id="groupingstyle.1">
+                  <source>None</source>
+                  <target>Keinen</target>
+            </trans-unit>
+            <trans-unit id="groupingstyle.2">
+                   <source>Grouping style according to years</source>
+                   <target>Gruppierung nach Jahren</target>
+             </trans-unit>
+            <trans-unit id="groupingstyle.3">
+                  <source>Grouping style according to publication types</source>
+                  <target>Gruppierung nach Publikationstypen</target>
+            </trans-unit>
+            <trans-unit id="success">
+                  <source>Input value is correct</source>
+                  <target>Eingabewert ist korrekt</target>
+            </trans-unit>
+            <trans-unit id="success.hint">
+                  <source>Your ORCID iD is: </source>
+                  <target>Ihre ORCID iD lautet: </target>
+            </trans-unit>
+            <trans-unit id="formatError">
+                  <source>Invalid field value</source>
+                  <target>Ungültiger Eingabewert</target>
+            </trans-unit>
+            <trans-unit id="formatError.hint">
+                  <source>Please enter ORCID iD in correct format: 0000-0000-0000-0000</source>
+                  <target>Bitte geben Sie ORCID iD im richtigen Format ein: 0000-0000-0000-0000</target>
+            </trans-unit>
+            <trans-unit id="noRecordError">
+                  <source>No ORCID record found.</source>
+                  <target>Kein ORCID-Eintrag gefunden.</target>
+            </trans-unit>
+            <trans-unit id="noRecordError.hint">
+                  <source>Please check your ORCID iD.</source>
+                  <target>Bitte überprüfen Sie die ORCID iD.</target>
+            </trans-unit>
+            <trans-unit id="error">
+                  <source>OOPS! Something went wrong!</source>
+                  <target>OOPS! Etwas ist schief gegangen!</target>
+            </trans-unit>
+            <trans-unit id="error.hint">
+                  <source>Please contact an administrator.</source>
+                  <target>Bitte wenden Sie sich an einen Administrator.</target>
+            </trans-unit>
+            <trans-unit id="scheduler.ignoreTimestamp">
+                   <source>Update all data (timestamp is ignored)</source>
+                   <target>Update aller Daten (Timestamp wird ignoriert)</target>
+            </trans-unit>
+            <trans-unit id="config.apiUrl">
+                   <source>ORCiD API Url: Please enter the public Url of the ORCiD API.</source>
+                   <target>ORCiD API Url: Geben Sie bitte die Url der ORCiD API ein.</target>
+            </trans-unit>
+            <trans-unit id="config.proxy">
+                   <source>Proxy Url (Optional): Please enter the Proxy details (with port), if necessary. If set, the curl option CURLOPT_PROXY is used.</source>
+                   <target>Proxy Url (Optional): Geben Sie bitte die Proxy-Details (inkl. Port) an, falls notwendig. Wenn diese Option gesetzt ist, wird die Curl-Option CURLOPT_PROXY verwendet.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

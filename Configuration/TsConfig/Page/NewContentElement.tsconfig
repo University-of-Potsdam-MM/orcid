@@ -1,0 +1,25 @@
+#----------------------------------------------------------------------------
+# This file is part of the package UniPotsdam\Orcid.
+# copyright 2022 by University Potsdam
+# https://www.uni-potsdam.de/
+#
+# GitHub repo: https://github.com/University-of-Potsdam-MM/orcid
+#
+# Project: Orcid Extension
+# Developer: Anuj Sharma (asharma@uni-potsdam.de)
+# Developer: Stefanie Lemcke (stefanie.lemcke@uni-potsdam.de)
+#----------------------------------------------------------------------------
+
+mod.wizards.newContentElement.wizardItems.common {
+    elements {
+        uporcid{
+            iconIdentifier = orcid_icon
+            title = LLL:EXT:orcid/Resources/Private/Language/locallang.xlf:up_orcid_extension_title
+            description = LLL:EXT:orcid/Resources/Private/Language/locallang.xlf:up_orcid_extension_description
+            tt_content_defValues.CType = uporcidext
+        }
+    }
+    show := addToList(uporcid)
+}
+
+

@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<!--
+* This file is part of the package UniPotsdam\Orcid.
+* copyright 2022 by University Potsdam
+* https://www.uni-potsdam.de/
+*
+* GitHub repo: https://github.com/University-of-Potsdam-MM/orcid
+*
+* Project: Orcid Extension
+* Developer: Stefanie Lemcke (stefanie.lemcke@uni-potsdam.de)
+*
+-->
+<xliff version="1.0">
+    <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2019-07-29UTC20:01:580">
+        <header>
+            <authorName>Stefanie Lemcke</authorName>
+            <authorEmail>stefanie.lemcke@uni-postdam.de</authorEmail>
+        </header>
+        <body>
+			<trans-unit id="up_orcid_extension_title">
+				<source>ORCID Publication Data</source>
+				<target>ORCID Publikationsdaten</target>
+			</trans-unit>
+			<trans-unit id="up_orcid_extension_description">
+            	<source>Get the ORCID data with ORCID iD</source>
+            	<target>Abrufen der ORCID-Publikationsdaten mit ORCID iD</target>
+            </trans-unit>
+            <trans-unit id="error.jsondata">
+                <source>The ORCID data could not be read. Please contact an administrator.</source>
+                <target>Die ORCID-Daten konnten nicht gelesen werden. Bitte wenden Sie sich an einen Administrator.</target>
+            </trans-unit>
+            <trans-unit id="error.rendering">
+                 <source>The ORCID data cannot be displayed. Please contact an administrator.</source>
+                 <target>Die ORCID-Daten können nicht dargestellt werden. Bitte wenden Sie sich an einen Administrator.</target>
+            </trans-unit>
+            <trans-unit id="error.citationsstyle_locales">
+                 <source>No language or citation style files exist. Please contact an administrator.</source>
+                 <target>Es existieren keine Sprach- oder Zitierstil-Dateien. Bitte wenden Sie sich an einen Administrator.</target>
+            </trans-unit>
+            <trans-unit id="warning.no_workdata">
+                 <source>The profile does not contain ORCID work data.</source>
+                 <target>Das Profil enthält keine ORCID Publikationsdaten.</target>
+            </trans-unit>
+            <trans-unit id="warning.no_record">
+                 <source>No ORCID record found. Please check your ORCID iD.</source>
+                 <target>Kein ORCID Datensatz gefunden. Bitte überprüfen Sie Ihre ORCID iD.</target>
+            </trans-unit>
+
+            <!-- ORCID Worktypes-->
+            <trans-unit id="book">
+                <source>Book</source>
+                <target>Buch</target>
+            </trans-unit>
+            <trans-unit id="book-chapter">
+                <source>Chapter</source>
+                <target>Buchkapitel</target>
+            </trans-unit>
+            <trans-unit id="chapter">
+                <source>Chapter</source>
+                <target>Buchkapitel</target>
+            </trans-unit>
+            <trans-unit id="book-review">
+                <source>Book Review</source>
+                <target>Rezension</target>
+            </trans-unit>
+            <trans-unit id="review">
+                <source>Book Review</source>
+                <target>Rezension</target>
+            </trans-unit>
+            <trans-unit id="dictionary-entry">
+                <source>Dictionary Entry</source>
+                <target>Wörterbucheintrag</target>
+            </trans-unit>
+            <trans-unit id="entry-dictionary">
+                 <source>Dictionary Entry</source>
+                 <target>Wörterbucheintrag</target>
+            </trans-unit>
+            <trans-unit id="dissertation">
+                <source>Dissertation</source>
+                <target>Dissertation</target>
+            </trans-unit>
+            <trans-unit id="dissertation-thesis">
+                <source>Dissertation</source>
+                <target>Dissertation</target>
+            </trans-unit>
+            <trans-unit id="thesis">
+                 <source>Thesis</source>
+                 <target>Abschlussarbeit</target>
+            </trans-unit>
+            <trans-unit id="encyclopedia-entry">
+                <source>Encyclopedia Entry</source>
+                <target>Lexikoneintrag</target>
+            </trans-unit>
+            <trans-unit id="entry-encyclopedia">
+                  <source>Encyclopedia Entry</source>
+                  <target>Lexikoneintrag</target>
+            </trans-unit>
+            <trans-unit id="edited-book">
+                <source>Edited Book</source>
+                <target>Buch</target>
+            </trans-unit>
+            <trans-unit id="book-edited">
+                <source>Edited Book</source>
+                <target>Buch</target>
+            </trans-unit>
+            <trans-unit id="article">
+                <source>Journal Article</source>
+                <target>Wissenschaftlicher Artikel</target>
+            </trans-unit>
+            <trans-unit id="journal-article">
+                <source>Journal Article</source>
+                <target>Wissenschaftlicher Artikel</target>
+            </trans-unit>
+            <trans-unit id="article-journal">
+                <source>Journal Article</source>
+                <target>Wissenschaftlicher Artikel</target>
+            </trans-unit>
+            <trans-unit id="journal-issue">
+                <source>Journal Issue</source>
+                <target>Zeitschriftenheft</target>
+            </trans-unit>
+            <trans-unit id="issue-journal">
+                <source>Journal Issue</source>
+                <target>Zeitschriftenheft</target>
+            </trans-unit>
+            <trans-unit id="magazine-article">
+                <source>Magazine Article</source>
+                <target>Beitrag zu einem Periodikum</target>
+            </trans-unit>
+            <trans-unit id="article-magazine">
+                <source>Magazine Article</source>
+                <target>Beitrag zu einem Periodikum</target>
+            </trans-unit>
+            <trans-unit id="manual">
+                <source>Manual</source>
+                <target>Technische Dokumentation</target>
+            </trans-unit>
+            <trans-unit id="online-resource">
+                <source>Online-Resource</source>
+                <target>Online-Ressource</target>
+            </trans-unit>
+            <trans-unit id="resource-online">
+                <source>Online-Resource</source>
+                <target>Online-Ressource</target>
+            </trans-unit>
+            <trans-unit id="newsletter-article">
+                <source>Newsletter Article</source>
+                <target>Newsletter</target>
+            </trans-unit>
+            <trans-unit id="article-newsletter">
+                <source>Newsletter Article</source>
+                <target>Newsletter</target>
+            </trans-unit>
+            <trans-unit id="newspaper-article">
+                <source>Newspaper Article</source>
+                <target>Beitrag zu einem Periodikum</target>
+            </trans-unit>
+            <trans-unit id="article-newspaper">
+                 <source>Newspaper Article</source>
+                 <target>Beitrag zu einem Periodikum</target>
+            </trans-unit>
+            <trans-unit id="preprint">
+                <source>Preprint</source>
+                <target>Preprint</target>
+            </trans-unit>
+            <trans-unit id="report">
+                <source>Report</source>
+                <target>Bericht</target>
+            </trans-unit>
+            <trans-unit id="research-tool">
+                <source>Research Tool</source>
+                <target>Forschungstool</target>
+            </trans-unit>
+            <trans-unit id="tool-research">
+                 <source>Research Tool</source>
+                 <target>Forschungstool</target>
+             </trans-unit>
+            <trans-unit id="supervised-student-publication">
+                <source>Supervised Student Publication</source>
+                <target>Studienarbeit</target>
+            </trans-unit>
+            <trans-unit id="test">
+                <source>Test</source>
+                <target>Test</target>
+            </trans-unit>
+            <trans-unit id="translation">
+                <source>Translation</source>
+                <target>Übersetzung</target>
+            </trans-unit>
+            <trans-unit id="website">
+                <source>Website</source>
+                <target>Webseite</target>
+            </trans-unit>
+            <trans-unit id="working-paper">
+                <source>Working Paper</source>
+                <target>Arbeitspapier</target>
+            </trans-unit>
+
+
+            <trans-unit id="conference-abstract">
+                <source>Conference Abstract</source>
+                <target>Konferenzabstract</target>
+            </trans-unit>
+            <trans-unit id="abstract-conference">
+                 <source>Conference Abstract</source>
+                 <target>Konferenzabstract</target>
+            </trans-unit>
+            <trans-unit id="conference-paper">
+                <source>Conference Paper</source>
+                <target>Konferenzpaper</target>
+            </trans-unit>
+            <trans-unit id="paper-conference">
+                <source>Conference Paper</source>
+                <target>Konferenzpaper</target>
+            </trans-unit>
+            <trans-unit id="conference-poster">
+                <source>Conference Poster</source>
+                <target>Konferenzposter</target>
+            </trans-unit>
+            <trans-unit id="poster-conference">
+                 <source>Conference Poster</source>
+                 <target>Konferenzposter</target>
+            </trans-unit>
+
+            <trans-unit id="disclosure">
+                <source>Disclosure</source>
+                <target>Bekanntmachung</target>
+            </trans-unit>
+            <trans-unit id="license">
+                <source>License</source>
+                <target>Lizenz</target>
+            </trans-unit>
+            <trans-unit id="patent">
+                <source>Patent</source>
+                <target>Patent</target>
+            </trans-unit>
+            <trans-unit id="registered-copyright">
+                <source>Registered Copyright</source>
+                <target>Copyright</target>
+            </trans-unit>
+            <trans-unit id="copyright-registered">
+                <source>Registered Copyright</source>
+                 <target>Copyright</target>
+            </trans-unit>
+            <trans-unit id="trademark">
+                <source>Trademark</source>
+                <target>Warenmarke</target>
+            </trans-unit>
+
+            <trans-unit id="annotation">
+                <source>Annotation</source>
+                <target>Entscheidungs- oder Urteilsanmerkung</target>
+            </trans-unit>
+<!--             <trans-unit id="artistic-performance"> -->
+<!--                 <source>Artistic-performance</source> -->
+<!--                 <target>??</target> -->
+<!--             </trans-unit> -->
+            <trans-unit id="data-management-plan">
+                <source>Data Management Plan</source>
+                <target>Datenmanagementplan</target>
+            </trans-unit>
+            <trans-unit id="data-set">
+                <source>Data Set</source>
+                <target>Forschungsdaten</target>
+            </trans-unit>
+            <trans-unit id="invention">
+                <source>Invention</source>
+                <target>Erfindung</target>
+            </trans-unit>
+            <trans-unit id="lecture-speech">
+                <source>Lecture Speech</source>
+                <target>Vorlesung</target>
+            </trans-unit>
+            <trans-unit id="physical-object">
+                <source>Physical Object</source>
+                <target>Physisches Objekt</target>
+            </trans-unit>
+            <trans-unit id="research-technique">
+                <source>Research Technique</source>
+                <target>Forschungstechnik</target>
+            </trans-unit>
+            <trans-unit id="software">
+                <source>Software</source>
+                <target>Software</target>
+            </trans-unit>
+            <trans-unit id="spin-off-company">
+                <source>Spin-off Company</source>
+                <target>Ausgründung</target>
+            </trans-unit>
+            <trans-unit id="standards-and-policy">
+                <source>Standards and Policy</source>
+                <target>Standards und Richtlinien</target>
+            </trans-unit>
+            <trans-unit id="technical-standard">
+                <source>Technical Standard</source>
+                <target>Technischer Standard</target>
+            </trans-unit>
+            <trans-unit id="other">
+                <source>Other</source>
+                <target>Verschiedenartige Ressourcen</target>
+            </trans-unit>
+		</body>
+    </file>
+</xliff>

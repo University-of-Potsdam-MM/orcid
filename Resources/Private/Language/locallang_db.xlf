@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<!--
+* This file is part of the package UniPotsdam\Orcid.
+* copyright 2022 by University Potsdam
+* https://www.uni-potsdam.de/
+*
+* GitHub repo: https://github.com/University-of-Potsdam-MM/orcid
+*
+* Project: Orcid Extension
+* Developer: Anuj Sharma (asharma@uni-potsdam.de)
+* Developer: Stefanie Lemcke (stefanie.lemcke@uni-potsdam.de)
+*
+-->
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2019-07-29UTC20:01:580">
+        <header>
+            <authorName>Anuj Sharma</authorName>
+            <authorEmail>asharma@uni-postdam.de</authorEmail>
+        </header>
+        <body>
+        </body>
+    </file>
+</xliff>
