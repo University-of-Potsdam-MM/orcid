@@ -44,13 +44,6 @@ if (TYPO3_MODE === 'BE' )   {
 
 
 /***************
-* Register the class to be available in 'eval' of TCA
-*/
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tce']['formevals']['UniPotsdam\\Orcid\\Evaluation\\OrcidEvaluation'] = '';
-
-
-
-/***************
  * Register Scheduler task for Orcid Data
  */
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][UniPotsdam\Orcid\Task\UpdateOrcidDataTask::class] = array(

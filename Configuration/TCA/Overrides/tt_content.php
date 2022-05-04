@@ -75,7 +75,7 @@ call_user_func(function()
                 'type' => 'input',
                 'placeholder' => '0000-0000-0000-0000',
                 'size' => '30',
-                'eval' => 'UniPotsdam\\Orcid\\Evaluation\\OrcidEvaluation,required',
+                'eval' => 'trim,required',
             ],
         ),
         'orcid_citation_style' => array (

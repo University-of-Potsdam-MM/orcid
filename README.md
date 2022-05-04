@@ -31,7 +31,6 @@ Personal publication lists from ORCID can be displayed in Typo3.
 
 ```
     Classes
-        Evaluation (Field evaluation: Verification of the format of the ORCID ID)
         Helper	(Help functions and error codes)
         Hooks (Hook for saving the orcid data and Hook for new content element)
         Services (Implementation of database access and Orcid API access)

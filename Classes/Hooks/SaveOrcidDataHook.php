@@ -35,20 +35,19 @@ class SaveOrcidDataHook {
     public function processDatamap_postProcessFieldArray($status, $table, $id, array &$fieldArray, \TYPO3\CMS\Core\DataHandling\DataHandler &$pObj)
     {
 
-
         // new orcid content element
         if ($status == 'new' && $fieldArray['CType'] == 'uporcidext') {
             //get orcid id
-            $orcidId = $fieldArray['orcid_id'];
+            $orcidId = trim($fieldArray['orcid_id']);
             // update orcid content element
         } else if ($status == 'update' && $table == 'tt_content'
             && BackendUtility::getRecord('tt_content', $id)['CType'] == 'uporcidext'
             && (!array_key_exists('CType', $fieldArray) || $fieldArray['CType']== 'uporcidext')) {
             //get orcid id
             if(array_key_exists('orcid_id', $fieldArray)){
-                $orcidId = $fieldArray['orcid_id'];
+                $orcidId = trim($fieldArray['orcid_id']);
             } else {
-                $orcidId = BackendUtility::getRecord('tt_content', $id)['orcid_id'];
+                $orcidId = trim(BackendUtility::getRecord('tt_content', $id)['orcid_id']);
             }
         } else {
             //ignore all other content elements and stati
@@ -94,6 +93,10 @@ class SaveOrcidDataHook {
                 $hint = LocalizationUtility::translate('LLL:EXT:orcid/Resources/Private/Language/locallang_be.xlf:success.hint');
                 Helper::successMessage($success, $hint . $orcidId);
             }
+        } else {
+            $error = LocalizationUtility::translate('LLL:EXT:orcid/Resources/Private/Language/locallang_be.xlf:formatError');
+            $hint = LocalizationUtility::translate('LLL:EXT:orcid/Resources/Private/Language/locallang_be.xlf:formatError.hint');
+            Helper::errorMessage($error, $hint);
         }
     }
 }
