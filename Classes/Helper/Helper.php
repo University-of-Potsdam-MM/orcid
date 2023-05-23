@@ -121,11 +121,11 @@ class Helper
                 $data = self::checkAuthorData($data, $alternativeAuthorNames);
                 //if there is a date in the dataset and it is different from the one in the metadata, the date of the dataset is used
                 if(isset($data -> issued -> {'date-parts'}[0][0]) &&
-                     is_int($data -> issued -> {'date-parts'}[0][0]) &&
-                     strlen((string)$data -> issued -> {'date-parts'}[0][0]) == 4 &&
-                     $data->issued->{'date-parts'}[0][0] != $value['year']
+                    is_int($data -> issued -> {'date-parts'}[0][0]) &&
+                    strlen((string)$data -> issued -> {'date-parts'}[0][0]) == 4 &&
+                    $data->issued->{'date-parts'}[0][0] != $value['year']
                 ) {
-                     $value['year'] = $data->issued->{'date-parts'}[0][0];
+                    $value['year'] = $data->issued->{'date-parts'}[0][0];
                 }
                 $value['data'] = json_encode($data);
                 $result[$key] = $value;
@@ -195,35 +195,41 @@ class Helper
 
 
     /**
-     * This function converts author data given as string into array with family and given key
+     * This function converts author data given as string into array with keys: family, given and dropping particle (only used, when et al(l). is present)
      * @param $author the author data as string
      * @return array the splited author data
      */
     private static function formatAuthor($author){
+        $newAuthor = new \stdClass();
+
+        //if the author's name contains 'et al(l).',
+        // it is removed from the string and
+        // set as a dropping particle to ensure that the citeproc engine prints 'et al.', even if only one name exists
+        if(preg_match('/et\s?al[l]?\.$/', $author)){
+            $newAuthor->{'dropping-particle'} = 'et al.';
+            $author = preg_replace('/\set\s?al[l]?\.$/', '', $author);
+        }
+
         //list of name extensions to recognize the last name
         $extensions= array("von", "zu", "vom", "zum", "di", "de", "del", "da", "degli", "dalla", "van", "ter");
-        //split the name by the last position of whitespace
+        //split the name by the last position of whitespace (default split)
         $authorNameSplit = preg_split("/\s(?=[^\s]*$)/", $author);
         if(preg_match('/,/', $author)){
             //names are in form 'familyname, givennames' and must be split by ', '
             $authorNameSplit=  explode(", ", $author, 2); // only the first occurence??
             //build new Array with keys family and given
-            $newAuthor = new \stdClass();
             $newAuthor->family = $authorNameSplit[0];
             $newAuthor->given = $authorNameSplit[1];
         } else if( ctype_upper($authorNameSplit[1])) {
             //the last part of the name consists only of upper cases -> could be the first name
-            $newAuthor = new \stdClass();
             $newAuthor->family = $authorNameSplit[0];
             $newAuthor ->given = $authorNameSplit[1];
         } else if (!empty($result = array_intersect(array_map('strtolower', explode(" ", $author)), $extensions))) {
             //name contains an extension
-            $newAuthor = new \stdClass();
             $newAuthor->family = stristr($author, $result[key($result)]);
             $newAuthor->given = stristr($author, $result[key($result)], true);
         } else {
             //names are in form 'givenname familynames' and must be split by ' '
-            $newAuthor = new \stdClass();
             $newAuthor->family = $authorNameSplit[1];
             $newAuthor ->given = $authorNameSplit[0];
         };
