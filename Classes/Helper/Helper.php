@@ -119,6 +119,14 @@ class Helper
                 //get workType
                 $value['type'] = $data -> type;
                 $data = self::checkAuthorData($data, $alternativeAuthorNames);
+                //if there is a date in the dataset and it is different from the one in the metadata, the date of the dataset is used
+                if(isset($data -> issued -> {'date-parts'}[0][0]) &&
+                     is_int($data -> issued -> {'date-parts'}[0][0]) &&
+                     strlen((string)$data -> issued -> {'date-parts'}[0][0]) == 4 &&
+                     $data->issued->{'date-parts'}[0][0] != $value['year']
+                ) {
+                     $value['year'] = $data->issued->{'date-parts'}[0][0];
+                }
                 $value['data'] = json_encode($data);
                 $result[$key] = $value;
             }
