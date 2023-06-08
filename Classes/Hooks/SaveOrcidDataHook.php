@@ -36,7 +36,7 @@ class SaveOrcidDataHook {
     {
 
         // new orcid content element
-        if ($status == 'new' && $fieldArray['CType'] == 'uporcidext') {
+        if ($status === 'new' && isset($fieldArray['CType']) && $fieldArray['CType'] === 'uporcidext') {
             //get orcid id
             $orcidId = trim($fieldArray['orcid_id']);
             // update orcid content element
