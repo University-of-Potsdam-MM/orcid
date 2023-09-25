@@ -1,7 +1,7 @@
 # ORCiD TYPO3-Extension
 [![CC BY-SA 4.0][cc-by-sa-shield]][cc-by-sa]
 
-This Typo3-Extension allows researchers to integrate their publications from ORCID into a Typo3 website. The extensions takes an ORCID ID, queries the ORCID API for publications and displays the publications in the frontend. Citation style and grouping options can be selected in the backend. The extension updates the list of publications on save and once a day via cronjob.
+This TYPO3-Extension allows researchers to integrate their publications from ORCID into a TYPO3 website. The extensions takes an ORCID ID, queries the ORCID API for publications and displays the publications in the frontend. Citation style and grouping options can be selected in the backend. The extension updates the list of publications on save and once a day via cronjob.
 
 ## Versions
 
@@ -23,7 +23,7 @@ This Typo3-Extension allows researchers to integrate their publications from ORC
 </table>
 
 ### Version 1
-Personal publication lists from ORCID can be displayed in Typo3.
+Personal publication lists from ORCID can be displayed in TYPO3.
 
 
 ## Project structure
@@ -67,7 +67,7 @@ php-curl
 
 ### Tasks
 There are two tasks to keep the Orcid data up to date:
-- Update Orcid Data: Updates all Orcid profiles contained on a Typo3 site that have a recent last-modified-date. 
+- Update Orcid Data: Updates all Orcid profiles contained on a TYPO3 site that have a recent last-modified-date. 
 	- Important fields
 		- Frequency (seconds or cron command): e.g. * 3 * * * (3 o'clock at night)
 		- Update all data (timestamp is ignored): if checked, **all** publication data will be updated. Timestamps are ignored. This function can be used if the code for preparing the data has changed.
@@ -88,7 +88,7 @@ The publication types are translated in the language files for the frontend (see
 Some publication types have the same translation. In this case they are combined (see `Resources/Public/JavaScript/orcid.js`).
 
 ### Citation Style Language - styles and locales 
-The CSL files (see section [Citation Style Language - styles and locales](#citation-style-language-styles-and-locales)) are stored unchanged as a copy under `extRessources`. The integration via Composer to ensure automatic updates did not work, because the dependencies of the plugins are not resolved when updating Typo3 for performance reasons.
+The CSL files (see section [Citation Style Language - styles and locales](#citation-style-language-styles-and-locales)) are stored unchanged as a copy under `extRessources`. The integration via Composer to ensure automatic updates did not work, because the dependencies of the plugins are not resolved when updating TYPO3 for performance reasons.
 
 Currently only a selection of citation styles is offered. It can be extended in `Configuration/TCA/Overrides/tt_content.php`.
 
