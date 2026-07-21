@@ -1,0 +1,32 @@
+name: Assets
+
+# Ensures the committed files in Resources/Public are in sync with their
+# sources in Resources/Private/Build. Fails if someone changed a source
+# file but forgot to rebuild and commit the output.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - name: Verify committed assets are up to date
+        run: |
+          if ! git diff --exit-code -- Resources/Public; then
+            echo "::error::Built assets in Resources/Public are out of date. Run 'npm run build' and commit the result."
+            exit 1
+          fi

@@ -1,140 +1,335 @@
-# ORCiD TYPO3-Extension
-[![CC BY-SA 4.0][cc-by-sa-shield]][cc-by-sa]
+# ORCID Extension for TYPO3
 
-This TYPO3-Extension allows researchers to integrate their publications from ORCID into a TYPO3 website. The extensions takes an ORCID ID, queries the ORCID API for publications and displays the publications in the frontend. Citation style and grouping options can be selected in the backend. The extension updates the list of publications on save and once a day via cronjob.
+[![TYPO3](https://img.shields.io/badge/TYPO3-13.x-orange.svg)](https://typo3.org/)
+[![PHP](https://img.shields.io/badge/PHP-8.4-blue.svg)](https://www.php.net/)
 
-## Versions
+A TYPO3 extension that integrates researcher profiles and publications from [ORCID (Open Researcher and Contributor ID)](https://orcid.org/) into your TYPO3 website.
 
-<table>
-<thead>
-<tr>
-<th>Oricd Ext</th>
-<th>TYPO3</th>
-<th>PHP</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1.x</td>
-<td>9.0 - 10.x </td>
-<td>7.0 - 7.x</td>
-</tr>
-</tbody>
-</table>
+## 🌟 Features
 
-### Version 1
-Personal publication lists from ORCID can be displayed in TYPO3.
+- **📚 Display Publications** - Fetch and display scholarly works from ORCID profiles
+- **🎨 Multiple Citation Styles** - Support for APA, IEEE, Chicago, Harvard, and more
+- **👥 Multiple Researchers** - Support single or multiple ORCID iDs in one content element
+- **🔄 Smart Synchronization** - Intelligent incremental updates using timestamps
+- **📊 Flexible Grouping** - Group publications by year or type
+- **⚡ Performance** - Local database caching for fast page loads
+- **🔧 Console Commands** - Easy data management via CLI
+- **🌐 Multi-language** - Citation rendering in multiple locales
 
+## 📋 Table of Contents
 
-## Project structure
-(see https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ApiOverview/ContentElements/AddingYourOwnContentElements.html)
+- [Requirements](#-requirements)
+- [Installation](#-installation)
+- [Quick Start](#-quick-start)
+- [Documentation](#-documentation)
+- [Usage Examples](#-usage-examples)
+- [Console Commands](#-console-commands)
+- [Architecture](#-architecture)
+- [Development](#-development)
+
+## 🔧 Requirements
+
+| Requirement | Version    |
+|------------|------------|
+| **TYPO3** | 13.4.x     |
+| **PHP** | 8.4        |
+| **PHP Extensions** | curl, json |
+| **Database** | MySQL 8.4  |
+
+## 📦 Installation
+
+The extension is distributed via its public GitHub repository (it is not
+published on Packagist). Register the repository in your project's
+`composer.json`, then require the package — Composer resolves the version from
+the repository's git tags.
+
+### 1. Add the repository
+
+```json
+{
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/University-of-Potsdam-MM/orcid.git"
+        }
+    ]
+}
+```
+
+### 2. Require the extension
+
+```bash
+composer require unipotsdam/orcid:^13.0
+```
+
+### Post-Installation
+
+1. **Include Static TypoScript Template**
+   - Go to **Web > Template** on your root page
+   - Include: **"ORCID Extension (orcid)"**
+
+2. **Configure Extension** (optional)
+   - Go to **Admin Tools > Settings > Extension Configuration > orcid**
+   - Set API URL (default: `https://pub.orcid.org/v3.0/`)
+   - Configure proxy if needed
+
+## 🚀 Quick Start
+
+### 1. Create Content Element
+
+1. Create a new content element on your page
+2. Select **"ORCID Work List"** from the plugin section
+3. Enter one or more ORCID iDs (format: `0000-0000-0000-0000`)
+4. Choose citation style (e.g., APA, IEEE, Harvard)
+5. Select grouping option (none, by year, or by type)
+6. Save
+
+### 2. Synchronize Data
+
+Run the sync command to fetch publications from ORCID:
+
+```bash
+vendor/bin/typo3 orcid:sync
+```
+
+### 3. View Frontend
+
+Publications will now display on your page with formatted citations!
+
+## 📖 Documentation
+
+Detailed documentation is available:
+
+- **[Installation Guide](docs/INSTALLATION.md)** - Detailed installation and setup
+- **[Configuration](docs/CONFIGURATION.md)** - Extension and content element configuration
+- **[User Guide](docs/USAGE.md)** - Editor guide for creating content
+- **[Administrator Guide](docs/ADMINISTRATOR.md)** - Admin tasks and maintenance
+- **[Developer Guide](docs/DEVELOPMENT.md)** - Extension architecture and customization
+- **[API Reference](docs/API.md)** - Class and method documentation
+- **[Command Reference](docs/COMMANDS.md)** - Console command details
+- **[Changelog](CHANGELOG.md)** - Version history
+
+## 💡 Usage Examples
+
+### Single Researcher Profile
+
+Display publications for one researcher:
 
 ```
-    Classes
-        Helper	(Help functions and error codes)
-        Hooks (Hook for saving the orcid data and Hook for new content element)
-        Services (Implementation of database access and Orcid API access)
-        Task  (Automated tasks for updating and deleting existing ORCiD data)
-        ViewHelpers (ViewHelper for displaying the data in the frontend. First preprocessing of the data)
-    Configuration
-    extResources(Copy of CSL files for citation styles and languages -> see remarks.)
-    Resources
-        Private
-            Language (Language files for front and back end)
-            Templates (HTML template for frontend)
-        Public
-            Css 
-            Icons
-            Javascript (Javascript library (https://github.com/Juris-M/citeproc-js) for rendering the publications and some helper functions for using the library)
+ORCID iD: 0000-0002-1825-0097
+Citation Style: APA
+Grouping: By Year
+Show Profile Owner: ✓
 ```
 
+**Result:**
+```
+Dr. Jane Smith
+──────────────
 
+2024
+• Smith, J. (2024). Advances in quantum computing...
+• Smith, J. & Doe, J. (2024). Machine learning applications...
 
-## Installation and Configuration
+2023
+• Smith, J. (2023). Data science methodologies...
+```
 
-### Prerequisites
-curl
-php-curl
+### Research Group Publications
 
-### Installation
-1. Copy project to `<typo3 path>/typo3conf/ext/orcid`.
-2. Delete backend and frontend caches.
-3. Activate extension under *Extensions*.
-4. Add ORCID Data (orcid) Template under *Template > Page-Template > Edit the whole template record > Includes*.
-5. Set API URL and (if necessary) Proxy under *Settings > Extension Configuration > orcid* 
-    (ORCID API Url: https://pub.orcid.org/v3.0)
-6. Activate Tasks and CronJob (see below)
+Combine publications from multiple researchers:
 
-### Tasks
-There are two tasks to keep the Orcid data up to date:
-- Update Orcid Data: Updates all Orcid profiles contained on a TYPO3 site that have a recent last-modified-date. 
-	- Important fields
-		- Frequency (seconds or cron command): e.g. * 3 * * * (3 o'clock at night)
-		- Update all data (timestamp is ignored): if checked, **all** publication data will be updated. Timestamps are ignored. This function can be used if the code for preparing the data has changed.
--  Delete Orcid Data:  Deletes all Orcid profiles (and their publications) that are not included on any page.
-	-  Important fields
-		-  Frequency (seconds or cron command): e.g. * 3 * * * (3 o'clock at night)
+```
+ORCID iDs: 0000-0002-1825-0097, 0000-0003-1234-5678, 0000-0001-9876-5432
+Citation Style: IEEE
+Grouping: By Type
+```
 
-To execute the scheduler tasks automatically, a cron job must be set in the system (see https://docs.typo3.org/c/typo3/cms-scheduler/main/en-us/Installation/CronJob/Index.html).
+**Result:**
+```
+Journal Articles
+[1] J. Smith, "Article title," Journal Name, vol. 42, no. 3, pp. 123-145, 2024.
+[2] J. Doe, "Another article," Different Journal, vol. 15, pp. 78-92, 2024.
 
-### Logs
-The class OrcidAPIService uses a logger. The log file can be found here `[typo3-path]/log/orcid_error.log`.
+Conference Papers
+[3] J. Smith and M. Johnson, "Conference paper," in Proc. IEEE Conf., 2024.
+```
 
-The configuration (e.g. path) of the logger can be changed in ext_localconf.php.
+## 🖥️ Console Commands
 
-### Work types
-The publication types are translated in the language files for the frontend (see  `Resources/Private/Language/(de.)locallang.xlf`). Because the translations are done server-side, the publication types are translated with the help of the `ViewHelpers/OrciddataViewHelper.php`. 
+### Sync All ORCID Data
 
-Some publication types have the same translation. In this case they are combined (see `Resources/Public/JavaScript/orcid.js`).
+Synchronize all ORCID iDs found in content elements:
 
-### Citation Style Language - styles and locales 
-The CSL files (see section [Citation Style Language - styles and locales](#citation-style-language-styles-and-locales)) are stored unchanged as a copy under `extRessources`. The integration via Composer to ensure automatic updates did not work, because the dependencies of the plugins are not resolved when updating TYPO3 for performance reasons.
+```bash
+vendor/bin/typo3 orcid:sync
+```
 
-Currently only a selection of citation styles is offered. It can be extended in `Configuration/TCA/Overrides/tt_content.php`.
+### Sync Specific ORCID iD
 
-## ORCiD API
-Currently the ORCiD API version 3 is used: https://pub.orcid.org/v3.0
-Used Functions:
-- `https://pub.orcid.org/v3.0/[orcid-id]`
-	Summary of the data of a person for the specified ORCiD ID
-- `https://pub.orcid.org/v3.0/[orcid-id]/work/[work-put-code]`
-	Data of a concrete research work
-	The header is set to `'Accept: application/vnd.citationstyles.csl+json'`, to get the data in the citeproc-json format needed for the csl renderer (citeproc-js)
-	
-For more information about the API, see https://info.orcid.org/documentation/api-tutorials/api-tutorial-read-data-on-a-record/
+Synchronize a single researcher:
 
-## Used projects
+```bash
+vendor/bin/typo3 orcid:sync --orcid=0000-0002-1825-0097
+```
 
-### Citation Style Language - styles and locales 
-The used CSL-files ([styles](https://github.com/citation-style-language/styles) and [locales](https://github.com/citation-style-language/locales)) were developed and released by the [CSL project](https://citationstyles.org/) and licensed under [CC BY-SA](https://creativecommons.org/licenses/by-sa/3.0/)
+### Sync Only New Profiles
 
-URL: https://citationstyles.org/
+Sync only ORCID iDs that have never been synced:
 
-In this project the CSL files are used unchanged.
+```bash
+vendor/bin/typo3 orcid:syncNew
+```
 
-### citeproc-js
-[citeproc-js](https://github.com/Juris-M/citeproc-js) implements the Citation Style Language. It is developed by &copy; Frank Bennett. 
+### Cleanup Unused Data
 
-URL: https://citationstyles.org/
+Delete ORCID data no longer referenced in content:
 
-A bug in the filter function was fixed. The bug fix has been reported, but as far as we know it has not been adopted yet.
+```bash
+vendor/bin/typo3 orcid:cleanup
+```
 
-For more information about citeproc-js, see [citeproc-js manual](https://citeproc-js.readthedocs.io/en/latest/)
+## 🏗️ Architecture
 
-### orcid-js
-Some functions to prepare the data for the csl-renderer (citeproc-js) were copied from https://github.com/ORCID/orcid-js and adapted. The relevant functions are marked in the code (see `Resources/Public/JavaScript/orcid.js`).
+The extension follows **Domain-Driven Design (DDD)** and TYPO3 best practices:
 
+```
+Classes/
+├── Command/              # Console commands (Symfony Console)
+├── Controller/           # Extbase controllers
+├── Domain/
+│   ├── Mapper/           # Data transformation (API → DTO)
+│   └── Repository/       # Data access layer
+├── Dto/                  # Data Transfer Objects (readonly)
+├── Hooks/                # TYPO3 DataHandler hooks
+├── Services/             # Business logic
+│   ├── OrcidApiClient.php       # ORCID API integration
+│   ├── OrcidSyncService.php     # Sync orchestration
+│   └── WorkListRenderer.php     # Citation rendering
+└── Value/                # Value Objects (immutable)
+    ├── OrcidId.php
+    └── OrcidIdCollection.php
+```
 
-## Licensing
-[![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa]
+## 🔨 Development
 
-ORCID-TYPO3 displays scientific publications in TYPO3. It was developed by the University of Potsdam. 
+### Building Frontend Assets
 
-URL: https://github.com/University-of-Potsdam-MM/orcid
+The compiled CSS and JavaScript in `Resources/Public/` are **committed to the
+repository** — TYPO3 serves them directly and installations via composer do not
+run any build step. When you change a source file under
+`Resources/Private/Build/`, rebuild and commit the output.
 
-This project is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License][cc-by-sa].
+**Sources → output**
 
+| Source (`Resources/Private/Build/`) | Output (`Resources/Public/`) |
+|---|---|
+| `StyleSheets/OrcidStyles.scss` | `StyleSheets/OrcidStyles.css` |
+| `JavaScript/Vendor/citationjs-entry.js` (bundles `@citation-js/*`) | `JavaScript/Vendor/citation-js.bundle.min.js` |
+| `JavaScript/citeproc.js` (vendored citeproc-js, pinned in-tree) | `JavaScript/citeproc.min.js` |
+| `JavaScript/orcid-citations.js` | `JavaScript/orcid-citations.min.js` |
 
-[cc-by-sa]: http://creativecommons.org/licenses/by-sa/4.0/
-[cc-by-sa-image]: https://licensebuttons.net/l/by-sa/4.0/88x31.png
-[cc-by-sa-shield]: https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg
+**Build**
+
+```bash
+npm ci        # install pinned dev dependencies
+npm run build # regenerate Resources/Public assets
+```
+
+Requires Node `^18`. The build uses `esbuild` (JS) and `sass` (CSS) only — no
+gulp. After building, commit the regenerated files in `Resources/Public/`.
+
+> **Note on citeproc-js:** `citeproc.js` is intentionally kept as a vendored
+> source file rather than an npm dependency. A newer citeproc release caused
+> rendering regressions, so this specific build is pinned in the repository.
+> `citation-js` is pinned to exact versions in `package.json`.
+
+### Extending
+
+**Add Custom Citation Style:**
+
+1. Place `.csl` file in `Resources/Public/CitationStyleLanguage/styles/`
+2. Add to TCA in `Configuration/TCA/Overrides/tt_content.php`
+3. Add translation label
+
+**Override Templates:**
+
+```typoscript
+plugin.tx_orcid {
+    view {
+        templateRootPaths {
+            10 = EXT:your_sitepackage/Resources/Private/Extensions/Orcid/Templates/
+        }
+    }
+}
+```
+
+**Log to dedicated file:**
+
+Extension logs to normal TYPO3 log. If you want to log to a separate rotating log file:
+- Add to `additional.php`
+```php
+// Route the UniPotsdam\Orcid log channel into its own rotating log file
+$GLOBALS['TYPO3_CONF_VARS']['LOG']['UniPotsdam']['Orcid']['writerConfiguration'] = [
+    LogLevel::WARNING => [
+        RotatingFileWriter::class => [
+            'logFileInfix' => 'orcid',
+            'interval' => Interval::DAILY,
+            'maxFiles' => 7,
+        ],
+    ],
+];
+```
+
+## 📊 Database Schema
+
+### Tables
+
+- **`tx_orcid_maindata`** - ORCID profiles and sync status
+- **`tx_orcid_workdata`** - Individual scholarly works
+- **`tt_content`** - Extended with ORCID fields
+
+### Sync Process
+
+1. **Incremental Updates** - Only fetches changed works
+2. **Work Grouping** - ORCID groups the same publication from multiple sources (e.g. Crossref, manual entry) into one logical work. The sync picks the preferred entry per group (highest `display-index`) so duplicates are never stored.
+3. **Stale Pruning** - Works no longer present in the API response (or no longer the preferred entry of their group) are automatically deleted during sync.
+4. **Rate Limiting** - Respects ORCID API policies (500ms delay)
+5. **Status Tracking** - Monitors sync success/failure
+
+## 🛠️ Troubleshooting
+
+### Publications Not Displaying
+
+### API Connection Issues
+
+```bash
+# Test ORCID API connectivity
+curl -I https://pub.orcid.org/v3.0/
+
+# Check logs
+tail -f var/log/orcid_error.log
+```
+
+## 🙏 Credits
+
+### Technologies
+
+- **[ORCID Public API v3.0](https://info.orcid.org/documentation/)** - Research profile data
+- **[Citation.js](https://citation.js.org/)** - Citation parsing and formatting
+- **[citeproc-js](https://citeproc-js.readthedocs.io/)** - CSL processor
+- **[Citation Style Language](https://citationstyles.org/)** - Citation formatting standards (CC BY-SA 3.0)
+
+### Development
+
+- **Universität Potsdam** - Initial development and maintenance
+- **queonext** - Development support
+
+## 📞 Support
+
+- **Issues**: [GitHub Issues](https://github.com/University-of-Potsdam-MM/orcid/issues)
+- **ORCID Support**: https://support.orcid.org/
+
+---
+
+**Made with ❤️ for the research community**

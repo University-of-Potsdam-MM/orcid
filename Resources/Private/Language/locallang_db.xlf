@@ -1,23 +1,84 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<!--
-* This file is part of the package UniPotsdam\Orcid.
-* copyright 2022 by University Potsdam
-* https://www.uni-potsdam.de/
-*
-* GitHub repo: https://github.com/University-of-Potsdam-MM/orcid
-*
-* Project: Orcid Extension
-* Developer: Anuj Sharma (asharma@uni-potsdam.de)
-* Developer: Stefanie Lemcke (stefanie.lemcke@uni-potsdam.de)
-*
--->
 <xliff version="1.0">
     <file source-language="en" datatype="plaintext" original="messages" date="2019-07-29UTC20:01:580">
-        <header>
-            <authorName>Anuj Sharma</authorName>
-            <authorEmail>asharma@uni-postdam.de</authorEmail>
-        </header>
+        <header/>
         <body>
+            <trans-unit id="orcid_works.CType">
+                <source>ORCiD work List</source>
+            </trans-unit>
+            <trans-unit id="orcid_works.CType.description">
+                <source>Displays a list of work for one or more ORCID iDs. Supports various citation styles and grouping by year or work type</source>
+            </trans-unit>
+
+            <trans-unit id="orcid_profile_owner.label">
+                <source>Show name of the profile owner</source>
+            </trans-unit>
+            <trans-unit id="orcid_profile_owner.description">
+                <source>The owner name is only shown when a single ORCID ID is configured. If multiple IDs are present, it will be hidden automatically.</source>
+            </trans-unit>
+            <trans-unit id="citationstyle.label">
+                <source>Citation Style</source>
+            </trans-unit>
+            <trans-unit id="citationstyle">
+                <source>Common Citation Styles</source>
+            </trans-unit>
+            <trans-unit id="citationstyle.acm-sig-proceedings">
+                <source>ACM</source>
+            </trans-unit>
+            <trans-unit id="citationstyle.apa">
+                <source>APA</source>
+            </trans-unit>
+            <trans-unit id="citationstyle.associacao-brasileira-de-normas-tecnicas">
+                <source>ABNT</source>
+            </trans-unit>
+            <trans-unit id="citationstyle.modern-language-association">
+                <source>MLA</source>
+            </trans-unit>
+            <trans-unit id="citationstyle.royal-society-of-chemistry">
+                <source>RSC</source>
+            </trans-unit>
+            <trans-unit id="citationstyle.chicago-author-date">
+                <source>Chicago</source>
+            </trans-unit>
+            <trans-unit id="citationstyle.harvard-cite-them-right">
+                <source>Harvard</source>
+            </trans-unit>
+            <trans-unit id="citationstyle.ieee">
+                <source>IEEE</source>
+            </trans-unit>
+            <trans-unit id="citationstyle.american-chemical-society">
+                <source>ACS</source>
+            </trans-unit>
+            <trans-unit id="orcid_id.label">
+                <source>ORCID iD</source>
+            </trans-unit>
+            <trans-unit id="orcid_id.error.message">
+                <source>Use: 0000-0000-0000-0000. Multiple values must be comma-separated.</source>
+            </trans-unit>
+            <trans-unit id="orcid_id.error.message.title">
+                <source>Invalid ORCID iD(s).</source>
+            </trans-unit>
+            <trans-unit id="orcid_id.description">
+                <source>Comma-separated list of ORCID iDs.</source>
+            </trans-unit>
+            <trans-unit id="orcid_grouping_style.label">
+                <source>Grouping Style</source>
+            </trans-unit>
+            <trans-unit id="orcid_grouping_style.0">
+                <source>None</source>
+            </trans-unit>
+            <trans-unit id="orcid_grouping_style.1">
+                <source>Grouping style according to years</source>
+            </trans-unit>
+            <trans-unit id="orcid_grouping_style.2">
+                <source>Grouping style according to types</source>
+            </trans-unit>
+            <trans-unit id="config.apiUrl">
+                <source>ORCiD API Url: Please enter the public Url of the ORCiD API.</source>
+            </trans-unit>
+            <trans-unit id="config.proxy">
+                <source>Proxy Url (Optional): Please enter the Proxy details (with port), if necessary. If set, the curl option CURLOPT_PROXY is used.</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>

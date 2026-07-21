@@ -1,0 +1,3 @@
+mod.web_layout.tt_content.preview {
+    orcid_works = EXT:orcid/Resources/Private/Backend/Preview/OrcidWorks.html
+}

@@ -1,0 +1,19 @@
+{
+  "name": "orcid-assets",
+  "description": "Build tooling for the ORCID TYPO3 extension frontend assets",
+  "license": "GPL-2.0-or-later",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "engines": {
+    "node": "^18"
+  },
+  "devDependencies": {
+    "@citation-js/core": "0.7.21",
+    "@citation-js/plugin-bibtex": "0.7.21",
+    "esbuild": "^0.27.2",
+    "sass": "^1.69"
+  }
+}

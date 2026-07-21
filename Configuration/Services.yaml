@@ -1,0 +1,32 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  UniPotsdam\Orcid\:
+    resource: '../Classes/*'
+
+  UniPotsdam\Orcid\Command\SyncOrcidCommand:
+    tags:
+      - name: 'console.command'
+        command: 'orcid:sync'
+        description: 'Sync ORCID works into DB'
+
+  UniPotsdam\Orcid\Command\SyncNewOrcidCommand:
+    tags:
+      - name: 'console.command'
+        command: 'orcid:syncNew'
+        description: 'Sync new ORCID works into DB'
+
+  UniPotsdam\Orcid\Command\CleanupOrcidCommand:
+    tags:
+      - name: 'console.command'
+        command: 'orcid:cleanup'
+        description: 'Deletes unused ORCID data from tx_orcid_maindata and tx_orcid_workdata'
+
+  UniPotsdam\Orcid\Domain\Repository\ProfileRepository:
+    public: true
+
+  UniPotsdam\Orcid\Updates\OrcidCTypeMigration:
+    public: true

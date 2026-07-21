@@ -1,0 +1,37 @@
+{namespace f=TYPO3\CMS\Fluid\ViewHelpers}
+
+<div class="t3-page-ce-body">
+    <div class="mt-2">
+        <div>
+            <strong><f:translate key="LLL:EXT:orcid/Resources/Private/Language/locallang_db.xlf:orcid_id.label"/>: </strong>
+            <f:if condition="{record.orcid_id}">
+                <code>{record.orcid_id}</code>
+            </f:if>
+        </div>
+
+        <div>
+            <strong><f:translate key="LLL:EXT:orcid/Resources/Private/Language/locallang_db.xlf:citationstyle.label"/>: </strong>
+            <f:if condition="{record.orcid_citation_style}">
+                <code>{record.orcid_citation_style}</code>
+            </f:if>
+            <f:if condition="{record.orcid_citation_style} == ''">
+                <em>default</em>
+            </f:if>
+        </div>
+
+        <div>
+            <strong><f:translate key="LLL:EXT:orcid/Resources/Private/Language/locallang_db.xlf:orcid_grouping_style.label"/>: </strong>
+            <f:translate key="LLL:EXT:orcid/Resources/Private/Language/locallang_db.xlf:orcid_grouping_style.{record.orcid_grouping_style}"/>
+        </div>
+
+        <div>
+            <strong><f:translate key="LLL:EXT:orcid/Resources/Private/Language/locallang_db.xlf:orcid_profile_owner.label"/>: </strong>
+            <f:if condition="{record.orcid_profile_owner}">
+                Yes
+            </f:if>
+            <f:if condition="{record.orcid_profile_owner} == 0">
+                No
+            </f:if>
+        </div>
+    </div>
+</div>

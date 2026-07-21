@@ -1,103 +1,137 @@
 <?php
 
+declare(strict_types=1);
+
 namespace UniPotsdam\Orcid\Hooks;
 
-/**
- * --------------------------------------------------------------
- * This file is part of the package UniPotsdam\Orcid.
- * copyright 2022 by University Potsdam
- * https://www.uni-potsdam.de/
- *
- * GitHub repo: https://github.com/University-of-Potsdam-MM/orcid
- *
- * Project: Orcid Extension
- * Developer: Stefanie Lemcke (stefanie.lemcke@uni-potsdam.de)
- * --------------------------------------------------------------
- */
-
-use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Backend\View\PageLayoutView;
-use TYPO3\CMS\Backend\View\PageLayoutViewDrawItemHookInterface;
-use TYPO3\CMS\Core\Page\PageRenderer;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
-use UniPotsdam\Orcid\Helper\ErrorCodes;
-use UniPotsdam\Orcid\Helper\Helper;
-use UniPotsdam\Orcid\Services\Database\MainDataDatabaseService;
-use UniPotsdam\Orcid\Services\Database\WorkDataDatabaseService;
-use UniPotsdam\Orcid\Services\OrcidAPIService;
-
+use Doctrine\DBAL\Exception;
+use Doctrine\DBAL\ParameterType;
+use Doctrine\DBAL\Query\QueryBuilder;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\DataHandling\DataHandler;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use UniPotsdam\Orcid\Value\OrcidIdCollection;
 
 /**
- * This hook saves the orcid data in the typo3 database after creating or updating the orcid content element.
+ * This hook saves the orcid_id in the typo3 database if it doesn't exist yet in the DB.
  */
-class SaveOrcidDataHook {
-
-    public function processDatamap_postProcessFieldArray($status, $table, $id, array &$fieldArray, \TYPO3\CMS\Core\DataHandling\DataHandler &$pObj)
-    {
-
-        // new orcid content element
-        if ($status === 'new' && isset($fieldArray['CType']) && $fieldArray['CType'] === 'uporcidext') {
-            //get orcid id
-            $orcidId = trim($fieldArray['orcid_id']);
-            // update orcid content element
-        } else if ($status == 'update' && $table == 'tt_content'
-            && BackendUtility::getRecord('tt_content', $id)['CType'] == 'uporcidext'
-            && (!array_key_exists('CType', $fieldArray) || $fieldArray['CType']== 'uporcidext')) {
-            //get orcid id
-            if(array_key_exists('orcid_id', $fieldArray)){
-                $orcidId = trim($fieldArray['orcid_id']);
-            } else {
-                $orcidId = trim(BackendUtility::getRecord('tt_content', $id)['orcid_id']);
-            }
-        } else {
-            //ignore all other content elements and stati
+class SaveOrcidDataHook
+{
+    /**
+     * @param mixed $id
+     *
+     * @throws Exception
+     */
+    public function processDatamap_postProcessFieldArray(
+        string $status,
+        string $table,
+        $id,
+        array &$fieldArray,
+        DataHandler $pObj
+    ): void {
+        if ($table !== 'tt_content') {
             return;
         }
 
-        if (!is_null($orcidId) && Helper::checkFormat($orcidId)) {
-            //retrieve data from api and stores it in the database
-            $orcidData = OrcidAPIService::getOrcidData($orcidId);
-            if ($orcidData instanceof ErrorCodes) {
-                if($orcidData->equals(ErrorCodes::cast(ErrorCodes::WRONG_HTTP_CODE))){
-                    $error = LocalizationUtility::translate('LLL:EXT:orcid/Resources/Private/Language/locallang_be.xlf:noRecordError');
-                    $hint = LocalizationUtility::translate('LLL:EXT:orcid/Resources/Private/Language/locallang_be.xlf:noRecordError.hint');
+        $uid = $this->resolveUid($status, (string)$id, $pObj);
+        if ($uid <= 0) {
+            return;
+        }
 
-                } else {
-                    $error = LocalizationUtility::translate('LLL:EXT:orcid/Resources/Private/Language/locallang_be.xlf:error');
-                    $hint = LocalizationUtility::translate('LLL:EXT:orcid/Resources/Private/Language/locallang_be.xlf:error.hint');
-                }
-                Helper::errorMessage($error, $hint);
-            } else {
-                //store id and content in tx_orcid_maindata
-                MainDataDatabaseService::insertOrUpdateOrcidData($orcidData);
+        // Determine ORCID from submitted values or from DB (when unchanged fields are not in $fieldArray)
+        $rawOrcid = isset($fieldArray['orcid_id']) ? (string)$fieldArray['orcid_id'] : null;
 
-                $jsonContent = Helper::prepareWorkdata($orcidData[$orcidId]);
+        $ttRow = null;
+        if ($rawOrcid === null || trim($rawOrcid) === '') {
+            $ttRow = $this->fetchTtContentRow($uid);
+            $rawOrcid = (string)($ttRow['orcid_id'] ?? '');
+        }
+        if ($rawOrcid === '') {
+            return;
+        }
 
-                //delete all entries which are not in the new data set
-                $oldWorkputCodes = WorkDataDatabaseService::getWorkputCodes($orcidId);
-                foreach ($oldWorkputCodes as $workputCode => $tstamp) {
-                    if (!array_key_exists($workputCode, $jsonContent)) {
-                        WorkDataDatabaseService::removeWorkData($workputCode);
-                    }
-                }
+        // Only react for orcid_works content element
+        $cType = (string)(($ttRow['CType'] ?? '') ?: ($fieldArray['CType'] ?? ''));
+        if ($cType !== '' && $cType !== 'orcid_works') {
+            return;
+        }
 
-                //get data form orcid api
-                $workData = OrcidAPIService::getOrcidWorkData($jsonContent, $oldWorkputCodes);
+        $orcidIds = OrcidIdCollection::fromCommaSeparatedList($rawOrcid);
+        if ($orcidIds->isEmpty()) {
+            return;
+        }
 
-                //various checks and cleanups
-                $workData = Helper::enrichWorkData($workData, $jsonContent['authorNames']);
-
-                //stores data
-                WorkDataDatabaseService::insertOrUpdateWorkData($orcidId, $workData);
-                $success = LocalizationUtility::translate('LLL:EXT:orcid/Resources/Private/Language/locallang_be.xlf:success');
-                $hint = LocalizationUtility::translate('LLL:EXT:orcid/Resources/Private/Language/locallang_be.xlf:success.hint');
-                Helper::successMessage($success, $hint . $orcidId);
-            }
-        } else {
-            $error = LocalizationUtility::translate('LLL:EXT:orcid/Resources/Private/Language/locallang_be.xlf:formatError');
-            $hint = LocalizationUtility::translate('LLL:EXT:orcid/Resources/Private/Language/locallang_be.xlf:formatError.hint');
-            Helper::errorMessage($error, $hint);
+        foreach ($orcidIds as $orcidId) {
+            $this->insertMainDataIfMissing((string)$orcidId);
         }
     }
-}
 
+    private function resolveUid(string $status, string $id, DataHandler $dataHandler): int
+    {
+        if ($status === 'new' && str_starts_with($id, 'NEW')) {
+            return (int)($dataHandler->substNEWwithIDs[$id] ?? 0);
+        }
+
+        return (int)$id;
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function fetchTtContentRow(int $uid): array
+    {
+        $queryBuilder = $this->queryBuilder('tt_content');
+
+        return (array)$queryBuilder
+            ->select('uid', 'CType', 'orcid_id')
+            ->from('tt_content')
+            ->where(
+                $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($uid, ParameterType::INTEGER)),
+                $queryBuilder->expr()->eq('deleted', $queryBuilder->createNamedParameter(0, ParameterType::INTEGER)),
+            )
+            ->setMaxResults(1)
+            ->executeQuery()
+            ->fetchAssociative();
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function insertMainDataIfMissing(string $orcid): void
+    {
+        $queryBuilder = $this->queryBuilder('tx_orcid_maindata');
+        $existingUid = $queryBuilder
+            ->select('uid')
+            ->from('tx_orcid_maindata')
+            ->where(
+                $queryBuilder->expr()->eq(
+                    'orcid_id',
+                    $queryBuilder->createNamedParameter($orcid)
+                )
+            )
+            ->setMaxResults(1)
+            ->executeQuery()
+            ->fetchOne();
+
+        if ($existingUid !== false) {
+            return;
+        }
+
+        $queryBuilder = $this->queryBuilder('tx_orcid_maindata');
+        $queryBuilder->insert('tx_orcid_maindata')
+            ->values([
+                'orcid_id' => $orcid,
+                'last_sync_status' => 'new',
+                'last_sync_message' => '',
+            ])
+            ->executeStatement();
+    }
+
+    private function queryBuilder(string $table): QueryBuilder
+    {
+        /** @var ConnectionPool $pool */
+        $pool = GeneralUtility::makeInstance(ConnectionPool::class);
+
+        return $pool->getQueryBuilderForTable($table);
+    }
+}

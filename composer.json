@@ -1,17 +1,24 @@
 {
     "name": "unipotsdam/orcid",
+    "description": "Fetch and display ORCID work data in TYPO3 CMS",
+    "license": "GPL-2.0-or-later",
     "type": "typo3-cms-extension",
-    "description": "Get the all data with typo3",
-    "homepage": "https://www.uni-potsdam.de",
-    "license": [
-        "GPL-2.0-or-later"
+    "authors": [
+        {
+            "name": "Universität Potsdam"
+        },
+        {
+            "name": "queonext"
+        }
     ],
-    "keywords": [
-        "TYPO3 CMS"
-    ],
+    "require": {
+        "ext-curl": "*",
+        "typo3/cms-core": "*",
+        "typo3/cms-fluid-styled-content": "*"
+    },
     "autoload": {
         "psr-4": {
-            "UniPotsdam\\Orcid\\": "Classes"
+            "UniPotsdam\\Orcid\\": "Classes/"
         }
     },
     "extra": {
@@ -19,5 +26,5 @@
             "extension-key": "orcid"
         }
     },
-    "version": "1.0.0"
+    "version": "13.0.0"
 }

@@ -13,14 +13,10 @@
 * --------------------------------------------------------------
 */
 
+// Global Extension Configuration template
 
-#
-# Extension Configuration template
-#
+# cat=API Url; type=string; label=LLL:EXT:orcid/Resources/Private/Language/locallang_db.xlf:config.apiUrl
+apiurl = https://pub.orcid.org/v3.0/
 
-# cat=API Url; type=string; label=LLL:EXT:orcid/Resources/Private/Language/locallang_be.xlf:config.apiUrl
-apiurl =
-
-# cat=Proxy; type=string; label=LLL:EXT:orcid/Resources/Private/Language/locallang_be.xlf:config.proxy
-proxy =
-
+# cat=Proxy; type=string; label=LLL:EXT:orcid/Resources/Private/Language/locallang_db.xlf:config.proxy
+proxy = http://proxy2.uni-potsdam.de:3128

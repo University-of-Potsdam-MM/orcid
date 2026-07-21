@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2019-07-29UTC20:01:580">
+        <header/>
+        <body>
+            <trans-unit id="orcid_works.CType">
+                <source>ORCiD work List</source>
+                <target>ORCiD Publikationsliste</target>
+            </trans-unit>
+            <trans-unit id="orcid_works.CType.description">
+                <source>Displays a list of work for one or more ORCID iDs. Supports various citation styles and grouping by year or work type</source>
+                <source>Zeigt eine Liste von Publikationen für eine oder mehrere ORCID iDs an. Unterstütze verschiedene Zitierstile und ein Gruppieren nach Jahr oder Publikationsart</source>
+            </trans-unit>
+
+            <trans-unit id="orcid_profile_owner.label">
+                <source>Show name of the profile owner</source>
+                <target>Name des Profilinhabers anzeigen</target>
+            </trans-unit>
+            <trans-unit id="orcid_profile_owner.description">
+                <source>The owner name is only shown when a single ORCID ID is configured. If multiple IDs are present, it will be hidden automatically.</source>
+                <source>Der Name des Inhabers wird nur angezeigt, wenn genau eine ORCID-ID konfiguriert ist. Sind mehrere IDs vorhanden, wird er automatisch ausgeblendet.</source>
+            </trans-unit>
+            <trans-unit id="citationstyle.label">
+                <source>Citation Style</source>
+                <target>Zitationsstil</target>
+            </trans-unit>
+            <trans-unit id="citationstyle">
+                <source>Common Citation Styles</source>
+                <target>Gängige Zitationsstile</target>
+            </trans-unit>
+            <trans-unit id="citationstyle.acm-sig-proceedings">
+                <source>ACM</source>
+                <target>ACM</target>
+            </trans-unit>
+            <trans-unit id="citationstyle.apa">
+                <source>APA</source>
+                <target>APA</target>
+            </trans-unit>
+            <trans-unit id="citationstyle.associacao-brasileira-de-normas-tecnicas">
+                <source>ABNT</source>
+                <target>ABNT</target>
+            </trans-unit>
+            <trans-unit id="citationstyle.modern-language-association">
+                <source>MLA</source>
+                <target>MLA</target>
+            </trans-unit>
+            <trans-unit id="citationstyle.royal-society-of-chemistry">
+                <source>RSC</source>
+                <target>RSC</target>
+            </trans-unit>
+            <trans-unit id="citationstyle.chicago-author-date">
+                <source>Chicago</source>
+                <target>Chicago</target>
+            </trans-unit>
+            <trans-unit id="citationstyle.harvard-cite-them-right">
+                <source>Harvard</source>
+                <target>Harvard</target>
+            </trans-unit>
+            <trans-unit id="citationstyle.ieee">
+                <source>IEEE</source>
+                <target>IEEE</target>
+            </trans-unit>
+            <trans-unit id="citationstyle.american-chemical-society">
+                <source>ACS</source>
+                <target>ACS</target>
+            </trans-unit>
+            <trans-unit id="orcid_id.label">
+                <source>ORCID iD</source>
+                <target>ORCID iD</target>
+            </trans-unit>
+            <trans-unit id="orcid_id.error.message">
+                <source>Use: 0000-0000-0000-0000. Multiple values must be comma-separated.</source>
+                <target>Verwenden Sie: 0000-0000-0000-0000. Mehrere Werte müssen durch Kommas getrennt werden.</target>
+            </trans-unit>
+            <trans-unit id="orcid_id.error.message.title">
+                <source>Invalid ORCID iD(s).</source>
+                <target>Ungültige ORCID-iD(s).</target>
+            </trans-unit>
+            <trans-unit id="orcid_id.description">
+                <source>Comma-separated list of ORCID iDs.</source>
+                <target>Kommagetrennte Liste von ORCID IDs.</target>
+            </trans-unit>
+            <trans-unit id="orcid_grouping_style.label">
+                <source>Grouping Style</source>
+                <target>Gruppierungsstil</target>
+            </trans-unit>
+            <trans-unit id="orcid_grouping_style.0">
+                <source>None</source>
+                <target>Keinen</target>
+            </trans-unit>
+            <trans-unit id="orcid_grouping_style.1">
+                <source>Grouping style according to years</source>
+                <target>Gruppierung nach Jahren</target>
+            </trans-unit>
+            <trans-unit id="orcid_grouping_style.2">
+                <source>Grouping style according to publication types</source>
+                <target>Gruppierung nach Publikationstypen</target>
+            </trans-unit>
+            <trans-unit id="config.apiUrl">
+                <source>ORCiD API Url: Please enter the public Url of the ORCiD API.</source>
+                <target>ORCiD API Url: Geben Sie bitte die Url der ORCiD API ein.</target>
+            </trans-unit>
+            <trans-unit id="config.proxy">
+                <source>Proxy Url (Optional): Please enter the Proxy details (with port), if necessary. If set, the curl option CURLOPT_PROXY is used.</source>
+                <target>Proxy Url (Optional): Geben Sie bitte die Proxy-Details (inkl. Port) an, falls notwendig. Wenn diese Option gesetzt ist, wird die Curl-Option CURLOPT_PROXY verwendet.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
