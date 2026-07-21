@@ -15,9 +15,9 @@ This TYPO3-Extension allows researchers to integrate their publications from ORC
 </thead>
 <tbody>
 <tr>
-<td>1.x</td>
-<td>9.0 - 10.x </td>
-<td>7.0 - 7.x</td>
+<td>10.x</td>
+<td>9.5 - 10.4</td>
+<td>7.2 - 7.4</td>
 </tr>
 </tbody>
 </table>

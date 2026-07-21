@@ -39,7 +39,7 @@ $EM_CONF[$_EXTKEY] = [
     'author' => 'Stefanie Lemcke',
     'author_email' => 'stefanie.lemcke@uni-potsdam.de',
     'author_company' => 'UniPotsdam',
-    'version' => '1.0.0',
+    'version' => '10.0.0',
 ];
 
 ?>
