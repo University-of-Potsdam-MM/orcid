@@ -10,12 +10,6 @@
                 <source>Displays a list of work for one or more ORCID iDs. Supports various citation styles and grouping by year or work type</source>
             </trans-unit>
 
-            <trans-unit id="orcid_profile_owner.label">
-                <source>Show name of the profile owner</source>
-            </trans-unit>
-            <trans-unit id="orcid_profile_owner.description">
-                <source>The owner name is only shown when a single ORCID ID is configured. If multiple IDs are present, it will be hidden automatically.</source>
-            </trans-unit>
             <trans-unit id="citationstyle.label">
                 <source>Citation Style</source>
             </trans-unit>

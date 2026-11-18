@@ -62,7 +62,6 @@ final readonly class WorkListRenderer
         ], JSON_THROW_ON_ERROR);
 
         return [
-            'personDisplayName' => $workList->getPersonDisplayName(),
             'groupsJson' => $groupsJson,
         ];
     }

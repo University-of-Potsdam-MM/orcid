@@ -110,16 +110,6 @@ $temporaryColumns = [
             'default' => 0,
         ],
     ],
-    'orcid_profile_owner' => [
-        'exclude' => true,
-        'label' => 'LLL:EXT:orcid/Resources/Private/Language/locallang_db.xlf:orcid_profile_owner.label',
-        'description' => 'LLL:EXT:orcid/Resources/Private/Language/locallang_db.xlf:orcid_profile_owner.description',
-        'config' => [
-            'type' => 'check',
-            'renderType' => 'checkboxToggle',
-            'default' => 1,
-        ],
-    ],
 ];
 
 ExtensionManagementUtility::addTCAcolumns(
@@ -131,7 +121,6 @@ ExtensionManagementUtility::addTCAcolumns(
 $GLOBALS['TCA']['tt_content']['types']['orcid_works'] = [
     'showitem' => '
             --palette--;;header,
-            orcid_profile_owner,
             orcid_id,
             orcid_citation_style,
             orcid_grouping_style,

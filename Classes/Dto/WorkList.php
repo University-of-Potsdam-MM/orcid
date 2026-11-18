@@ -39,15 +39,6 @@ class WorkList implements IteratorAggregate, Countable
         return $this->works;
     }
 
-    public function getPersonDisplayName(): string
-    {
-        if ($this->orcidIds->count() !== 1) {
-            return '';
-        }
-
-        return $this->person ? $this->person->displayName() : '';
-    }
-
     public function getPerson(): Person
     {
         return $this->person;

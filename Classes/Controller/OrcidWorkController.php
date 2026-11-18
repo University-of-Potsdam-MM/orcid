@@ -13,7 +13,6 @@ use TYPO3\CMS\Core\Resource\Exception\InvalidFileException;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use UniPotsdam\Orcid\Domain\Repository\PersonProfileRepository;
 use UniPotsdam\Orcid\Domain\Repository\WorkRepository;
 use UniPotsdam\Orcid\Dto\WorkList;
 use UniPotsdam\Orcid\Services\WorkListRenderer;
@@ -23,7 +22,6 @@ class OrcidWorkController extends ActionController
 {
     public function __construct(
         private readonly WorkRepository $workRepository,
-        private readonly PersonProfileRepository $personProfileRepository,
         private readonly WorkListRenderer $workListRenderer,
         private readonly AssetCollector $assetCollector,
     ) {}
@@ -43,7 +41,6 @@ class OrcidWorkController extends ActionController
         $orcidId = $contentObjectData['orcid_id'] ?? '';
         $citationStyle = $contentObjectData['orcid_citation_style'] ?? '';
         $groupingStyle = (int)($contentObjectData['orcid_grouping_style'] ?? 0);
-        $showProfileOwner = (bool)($contentObjectData['orcid_profile_owner'] ?? 1);
 
         $grouping = match ($groupingStyle) {
             1 => 'year',
@@ -76,7 +73,6 @@ class OrcidWorkController extends ActionController
 
         $orcidIds = OrcidIdCollection::fromOrcidIds();
         $works = [];
-        $person = null;
 
         if ($orcidId !== '') {
             try {
@@ -89,17 +85,11 @@ class OrcidWorkController extends ActionController
 
         if (!$orcidIds->isEmpty()) {
             $works = $this->workRepository->findByOrcidIds($orcidIds);
-
-            // Only show a single person header if exactly one ID
-            if ($showProfileOwner && $orcidIds->count() === 1) {
-                $singleOrcidId = $orcidIds->getFirst();
-                $person = $singleOrcidId ? $this->personProfileRepository->findPerson($singleOrcidId) : null;
-            }
         }
 
         $workList = new WorkList(
             orcidIds: $orcidIds,
-            person: $person,
+            person: null,
             works: $works
         );
 
@@ -117,7 +107,6 @@ class OrcidWorkController extends ActionController
         );
         $this->view->assignMultiple([
             'uid' => $contentObjectData['uid'],
-            'personDisplayName' => $payload['personDisplayName'], // renderer can decide empty for multi
             'groupsJson' => $payload['groupsJson'],
         ]);
 

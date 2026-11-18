@@ -12,14 +12,6 @@
                 <source>Zeigt eine Liste von Publikationen für eine oder mehrere ORCID iDs an. Unterstütze verschiedene Zitierstile und ein Gruppieren nach Jahr oder Publikationsart</source>
             </trans-unit>
 
-            <trans-unit id="orcid_profile_owner.label">
-                <source>Show name of the profile owner</source>
-                <target>Name des Profilinhabers anzeigen</target>
-            </trans-unit>
-            <trans-unit id="orcid_profile_owner.description">
-                <source>The owner name is only shown when a single ORCID ID is configured. If multiple IDs are present, it will be hidden automatically.</source>
-                <source>Der Name des Inhabers wird nur angezeigt, wenn genau eine ORCID-ID konfiguriert ist. Sind mehrere IDs vorhanden, wird er automatisch ausgeblendet.</source>
-            </trans-unit>
             <trans-unit id="citationstyle.label">
                 <source>Citation Style</source>
                 <target>Zitationsstil</target>

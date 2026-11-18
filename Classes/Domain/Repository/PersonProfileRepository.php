@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UniPotsdam\Orcid\Domain\Repository;
 
-use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\DBAL\ParameterType;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -79,29 +78,6 @@ final readonly class PersonProfileRepository
             ->set('given_name', $person->getGivenName())
             ->set('family_name', $person->getFamilyName())
             ->executeStatement();
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function findPerson(OrcidId $orcidId): ?Person
-    {
-        $queryBuilder = $this->queryBuilder();
-        $expr = $queryBuilder->expr();
-
-        $person = $queryBuilder
-            ->select('given_name', 'family_name')
-            ->from('tx_orcid_maindata')
-            ->where(
-                $expr->eq(
-                    'orcid_id',
-                    $queryBuilder->createNamedParameter((string)$orcidId)
-                )
-            )
-            ->executeQuery()
-            ->fetchAssociative();
-
-        return new Person($person['given_name'] ?? '', $person['family_name'] ?? '');
     }
 
     private function queryBuilder(): QueryBuilder

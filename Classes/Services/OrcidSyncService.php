@@ -38,9 +38,10 @@ readonly class OrcidSyncService
                 'ORCID iD does not exist (HTTP 404)'
             );
         } catch (Throwable $e) {
-            $this->logger->error('ORCID sync failed.', [
+            $this->logger->error('ORCID sync failed: ' . $e->getMessage(), [
                 'orcid' => (string)$orcidId,
-                'exception' => $e,
+                'exceptionClass' => $e::class,
+                'file' => $e->getFile() . ':' . $e->getLine(),
             ]);
             $this->personProfileRepository->updateSyncStatus(
                 $orcidId,
